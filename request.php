@@ -3,6 +3,9 @@ require 'vendor/autoload.php';
 use Illuminate\Guzzlehttp\guzzle;
 use GuzzleHttp\Client;    // Initialize Guzzle client
 use GuzzleHttp\Psr7\Request;
+GuzzleHttp\RequestOptions::DEBUG;
+
+
 
 $client = new \GuzzleHttp\Client();
 
