@@ -1,10 +1,15 @@
 <?php
 /**
+<<<<<<< HEAD
  * How to use this library
  * first download the library into your project directory
  * then composer install to install all dependencies
  * Call any of the function you want to use in your file and put in the parameters through the route.
  * The parameters are passed as a form request and send to the route
+=======
+ * This API manages all request to Cecula Vereafy services.
+ * Initialization, Completion, Resend and Account Balance
+>>>>>>> 591624d0536a79d5ae5c4f3c6bf472dfceda0c68
  * 
  */
 
