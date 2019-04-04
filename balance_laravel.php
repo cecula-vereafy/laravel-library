@@ -15,6 +15,7 @@ $header = Array(
     'authorization' => 'Bearer' //Paste your key here
 );
 
+// Handling request
 $response = $client->request($method, $url, [
     'headers'        => $header,
 ]);

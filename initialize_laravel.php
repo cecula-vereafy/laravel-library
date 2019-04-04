@@ -16,8 +16,7 @@ $body = Array(
     'mobile' => ''
 
 );
-
-
+// Handling request
 $response = $client->request($method, $url, [
     'headers'        => $header,
     'json'  => $body,
