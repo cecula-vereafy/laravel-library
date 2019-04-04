@@ -6,7 +6,6 @@ use GuzzleHttp\Psr7\Request;
 GuzzleHttp\RequestOptions::DEBUG;
 
 
-
 $client = new \GuzzleHttp\Client();
 
 $method = 'GET';
