@@ -3,73 +3,104 @@
  * How to use this library
  * first download the library into your project directory
  * then composer install to install all dependencies
- * Call any of the function you want to use in your file and put in the parameters and a callabck function
- * The parameters are passed as dataObj and are inputed in a JSON format /({"mobile":"23470xxxxxx"})/
+ * Call any of the function you want to use in your file and put in the parameters through the route.
+ * The parameters are passed as a form request and send to the route
  * 
  */
-require 'vendor/autoload.php';
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use Illuminate\Guzzlehttp\guzzle;
-use GuzzleHttp\Client;    // Initialize Guzzle client
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Client;    
 
-class vereafyController
+
+class vereafyController extends Controller
 {
-
-private $url = 'https://api.cecula.com';
-private $header = [];
-private $key = null;
-public function generate($apiKey){
-    $this->$key = $apiKey;
-    $this->$header = [
-    'Content-Type' => 'application/json',
-    'authorization' => 'Bearer + {$this->$key}',
-    "cache-control: no-cache"
-    ];
-}
     /**
-     * Show the profile for the given user.
+     * Display a listing of the resource.
      *
-     * @param  int  $id
-     * @return View
+     * @return \Illuminate\Http\Response
      */
-    public function initial($mobile)
+
+    //
+    private $header = [
+        'Content-Type' => 'application/json',
+        'authorization' => 'Bearer', //Paste your key after the bearer with a space here
+        'cache-control' => 'no-cache'
+    ];
+    // Declaring the mobile variable as private
+    private $mobile;
+    // Declaring the pin ref variable as private
+    private $pinRef;
+    // Declaring the token variable as private
+    private $token;
+
+    /* Two factor Init
+    * Only accept mobile request
+    */
+        public function init(Request $request)
     {
-        $data = [
-            'mobile' => $mobile
-        ];
-        return $this->sendPostRequest('twofactor/init',$data);
+        $client = new Client([
+            'headers' => $this->header
+                ]);
+        $res = $client->request('POST', 'https://api.cecula.com/twofactor/init',[
+            'json' => [
+                'mobile' => $this->mobile = $request->mobile
+            ]
+        ]);
+        $data = $res->getBody();
+        return $data;
+
     }
 
-    public function resend($pinRef, $mobile)
+    /* Two factor Complete
+    * Accept pin_ref and token request
+    */
+    public function complete(Request $request)
     {
-        $data = [
-            'pinRef' => $pinRef,
-            'mobile' => $mobile
-        ];
-        return $this->sendPostRequest('twofactor/resend',$data);
+        $client = new Client([
+            'headers' => $this->header
+                ]);
+        $res = $client->request('POST', 'https://api.cecula.com/twofactor/complete',[
+            'json' => [
+                'pinRef' => $this->pinRef = $request->pin_ref,
+                'token' => $this->token = $request->token
+            ],
+        ]);
+        $data = $res->getBody();
+        return $data;
     }
 
-    public function complete($pinRef, $token)
+    /* Two factor Resend
+    * Accept pin_ref and mobile request
+    */
+    public function resend(Request $request)
     {
-        $data = [
-            'pinRef' => $pinRef,
-            'token' => $token
-        ];
-        return $this->sendPostRequest('twofactor/complete',$data);
+        $client = new Client([
+            'headers' => $this->header
+                ]);
+        $res = $client->request('POST', 'https://api.cecula.com/twofactor/resend',[
+            'json' => [
+                'pinRef' => $this->pinRef = $request->pin_ref,
+                'mobile' => $this->mobile = $request->mobile
+            ],
+        ]);
+        $data = $res->getBody();
+        return $data;
     }
 
+    /* Two factor Account Balance
+    * This API only receive a GET method
+    */
     public function balance()
     {
-        return $this->getRequest('account/tfabalance');
-    }
-
-    private function sendPostRequest($url, $header, $data){
-        $response = $client->request('POST', $url, [
-            // 'debug' => true,
-            'headers'        => $this->$header,
-            'json'  => $data,
+        $client = new Client([
+            'headers' => $this->header
+                ]);
+        $res = $client->request('GET', 'https://api.cecula.com/account/tfabalance',[
         ]);
-        $response->getBody();
+        $data = $res->getBody();
+        return $data;
     }
-
+   
 }
