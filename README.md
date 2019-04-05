@@ -1,4 +1,7 @@
 ## Vereafy Laravel Library
+[![Latest Version](https://img.shields.io/github/release/cecula-vereafy/laravel-library.svg?style=flat-square)](https://github.com/cecula-vereafy/laravel-library/release)
+
+
 - Introduction
 - Initialization
 - Completion
