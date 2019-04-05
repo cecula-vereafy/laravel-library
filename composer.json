@@ -1,5 +1,5 @@
 {
-    "name": "cecula/vereafy",
+    "name": "cecula/vereafy-laravel",
     "description": "This package is to enable Laravel Developers integrate seamlessly with the Vereafy API",
     "type": "library",
     "license": "MIT",
