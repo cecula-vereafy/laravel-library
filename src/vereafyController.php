@@ -18,20 +18,23 @@ class vereafyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //Header
+    //
     private $header = [
         'Content-Type' => 'application/json',
-        'authorization' => 'Bearer CCL.a0iu7wHUQBq1-20.vqqPZkKTt2HuBZ3iGdiZIqvq',
+        'authorization' => 'Bearer', //Paste your key after the bearer with a space here
         'cache-control' => 'no-cache'
     ];
-    // Mobile
+    // Declaring the mobile variable as private
     private $mobile;
-    // Pin Ref
+    // Declaring the pin ref variable as private
     private $pinRef;
-    // Token
+    // Declaring the token variable as private
     private $token;
 
-    public function init(Request $request)
+    /* Two factor Init
+    * Only accept mobile request
+    */
+        public function init(Request $request)
     {
         $client = new Client([
             'headers' => $this->header
@@ -46,6 +49,9 @@ class vereafyController extends Controller
 
     }
 
+    /* Two factor Complete
+    * Accept pin_ref and token request
+    */
     public function complete(Request $request)
     {
         $client = new Client([
@@ -61,6 +67,9 @@ class vereafyController extends Controller
         return $data;
     }
 
+    /* Two factor Resend
+    * Accept pin_ref and mobile request
+    */
     public function resend(Request $request)
     {
         $client = new Client([
@@ -76,6 +85,9 @@ class vereafyController extends Controller
         return $data;
     }
 
+    /* Two factor Account Balance
+    * This API only receive a GET method
+    */
     public function balance()
     {
         $client = new Client([

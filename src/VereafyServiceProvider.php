@@ -25,6 +25,6 @@ class VereafyServiceProvider extends ServiceProvider
     public function boot()
     {
         // Boot our route
-        $this->loadRoutesFrom(__DIR__.'routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
     }
 }
