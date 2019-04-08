@@ -1,9 +1,10 @@
 {
-    "name": "cecula/vereafy",
+    "name": "cecula/vereafy-laravel",
     "description": "This package is to enable Laravel Developers integrate seamlessly with the Vereafy API",
     "keywords": ["Authentication", "two-factor", "tfa", "2fa", "Two-factor Authentication", "Vereafy", "Cecula", "Vereafy Laravel", "Cecula Laravel", "2-factor authentication"],
     "type": "library",
     "license": "MIT",
+    "homepage": "https://www.cecula.com/vereafy",
     "authors": [{
         "name": "Soliu Fatai O.",
         "email": "ceculang@gmail.com"
